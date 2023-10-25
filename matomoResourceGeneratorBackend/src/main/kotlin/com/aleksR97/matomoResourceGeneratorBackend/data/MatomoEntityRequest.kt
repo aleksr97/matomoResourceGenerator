@@ -4,7 +4,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "_matomos")
-data class MatomoEntity (
+data class MatomoEntityRequest (
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     val name: String,

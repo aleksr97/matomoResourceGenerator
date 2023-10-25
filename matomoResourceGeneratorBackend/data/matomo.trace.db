@@ -375,3 +375,6 @@ delete * from _MATOMOS [42001-214]
 2023-10-25 23:04:13 jdbc[3]: exception
 org.h2.jdbc.JdbcSQLNonTransientException: Das Objekt wurde bereits geschlossen
 The object is already closed [90007-214]
+2023-10-25 23:39:22 jdbc[3]: exception
+org.h2.jdbc.JdbcSQLNonTransientException: Das Objekt wurde bereits geschlossen
+The object is already closed [90007-214]

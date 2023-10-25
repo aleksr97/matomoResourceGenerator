@@ -1,9 +1,8 @@
 package com.aleksR97.matomoResourceGeneratorBackend.repository
 
-import com.aleksR97.matomoResourceGeneratorBackend.data.MatomoEntity
+import com.aleksR97.matomoResourceGeneratorBackend.data.MatomoEntityRequest
 import org.springframework.data.jpa.repository.JpaRepository
-import javax.xml.stream.events.Namespace
 
-interface MatomoRepository : JpaRepository<MatomoEntity, Long> {
+interface MatomoRepository : JpaRepository<MatomoEntityRequest, Long> {
     fun existsByNameAndNamespace(name: String, namespace: String) : Boolean
 }

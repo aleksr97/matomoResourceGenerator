@@ -1,6 +1,6 @@
 package com.aleksR97.matomoResourceGeneratorBackend.service
 
-import com.aleksR97.matomoResourceGeneratorBackend.data.MatomoEntity
+import com.aleksR97.matomoResourceGeneratorBackend.data.MatomoEntityRequest
 import com.aleksR97.matomoResourceGeneratorBackend.exceptions.ResourceAlreadyExistsException
 import com.aleksR97.matomoResourceGeneratorBackend.repository.MatomoRepository
 import org.springframework.stereotype.Service
@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service
 @Service
 class MatomoService(private val matomoRepository: MatomoRepository) {
 
-    fun createMatomoResource (matomo : MatomoEntity) : MatomoEntity {
+    fun createMatomoResource (matomo : MatomoEntityRequest) : MatomoEntityRequest {
         val name = matomo.name
         val namespace = matomo.namespace
 
@@ -19,7 +19,7 @@ class MatomoService(private val matomoRepository: MatomoRepository) {
         return matomoRepository.save(matomo)
     }
 
-    fun getMatomoResourceById (id: Long) : MatomoEntity? {
+    fun getMatomoResourceById (id: Long) : MatomoEntityRequest? {
        return matomoRepository.findById(id).orElse(null)
     }
 
