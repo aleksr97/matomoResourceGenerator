@@ -1,0 +1,30 @@
+# General
+.DS_Store
+
+# IDE
+.idea/
+*.iml
+
+# Compiled Java classes
+target/
+
+# Compiled Kotlin classes
+bin/
+build/
+
+
+matomoResourceGeneratorFrontend/.idea/
+matomoResourceGeneratorBackend/.idea/
+
+# Node.js
+node_modules/
+
+# Frontend (React) build output
+matomoResourceGeneratorFrontend/build/
+matomoResourceGeneratorFrontend/node_modules/
+
+# Spring Boot-specific
+*.log
+logs/
+
+
