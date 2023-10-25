@@ -1,12 +1,11 @@
 package com.aleksR97.matomoResourceGeneratorBackend.data;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*
 
 @Entity
+@Table(name = "_matomos")
 data class MatomoEntity (
-    @Id @GeneratedValue
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long,
     val name: String,
     val namespace: String,
