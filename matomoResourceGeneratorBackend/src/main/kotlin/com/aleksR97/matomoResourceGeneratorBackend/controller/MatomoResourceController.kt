@@ -20,7 +20,7 @@ import java.util.*
 class MatomoResourceController (private val matomoService: MatomoService) {
 
     @PostMapping
-    fun createMatomoResource(@RequestBody matomo: MatomoEntityRequest) : ResponseEntity<MatomoResponse>{
+    fun createMatomoResource(@RequestBody matomo: MatomoEntityRequest) : ResponseEntity<String>{
         val apiVersion = "glasskube.eu/v1alpha1"
         val kind = "Matomo"
 
@@ -32,7 +32,9 @@ class MatomoResourceController (private val matomoService: MatomoService) {
             metadata = Metadata(matomo.name, matomo.namespace),
             spec = Spec(host = matomo.host)
         )
-        return ResponseEntity.ok(response)
+
+        val yamlResponse = matomoService.createResourceFile(response)
+        return ResponseEntity.ok(yamlResponse)
 
     }
 

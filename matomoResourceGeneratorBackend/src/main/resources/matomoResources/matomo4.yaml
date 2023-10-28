@@ -1,0 +1,8 @@
+---
+apiVersion: "glasskube.eu/v1alpha1"
+kind: "Matomo"
+metadata:
+  name: "matomo4"
+  namespace: "matomo"
+spec:
+  host: "matomo.minikube"
