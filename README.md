@@ -48,3 +48,7 @@ Use a SQL database for persistence.
 Creating two resources with the same name in the same namespace would be an error.
 Therefore, your application should validate that it doesn't generate two resources with the same name in the same
 namespace.
+
+NOTE:
+- create table before running the app
+
