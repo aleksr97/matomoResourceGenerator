@@ -29,14 +29,12 @@ class MatomoService(private val matomoRepository: MatomoRepository) {
         return matomoRepository.findById(id).orElse(null)
     }
     fun getAllMatomoResources() = matomoRepository.findAll().toList()
-    fun matomoResourceExistsInNamespace(name: String, namespace: String): Boolean {
-        return matomoRepository.existsByNameAndNamespace(name, namespace)
-    }
+
     fun createMatomoResource(matomo: MatomoEntityRequest): String {
         val name = matomo.name
         val namespace = matomo.namespace
 
-        if (matomoResourceExistsInNamespace(name, namespace)) {
+        if (matomoRepository.existsByNameAndNamespace(name, namespace)) {
             throw ResourceAlreadyExistsException("Resource with the same name and namespace already exists.")
         }
         matomoRepository.save(matomo)
