@@ -25,6 +25,13 @@ class MatomoService(private val matomoRepository: MatomoRepository) {
         println("apiVersion: $apiVersion")
         println("kind: $kind")
     }
+    fun getMatomoResourceById(id: Long): MatomoEntityRequest? {
+        return matomoRepository.findById(id).orElse(null)
+    }
+    fun getAllMatomoResources() = matomoRepository.findAll().toList()
+    fun matomoResourceExistsInNamespace(name: String, namespace: String): Boolean {
+        return matomoRepository.existsByNameAndNamespace(name, namespace)
+    }
     fun createMatomoResource(matomo: MatomoEntityRequest): String {
         val name = matomo.name
         val namespace = matomo.namespace
@@ -38,33 +45,33 @@ class MatomoService(private val matomoRepository: MatomoRepository) {
     }
 
     private fun createResourceFile(matomo: MatomoEntityRequest): String {
-        val response = MatomoResponse(
-            apiVersion = apiVersion,
-            kind = kind,
-            metadata = Metadata(matomo.name, matomo.namespace),
-            spec = Spec(host = matomo.host)
-        )
-
-        val objectMapper = ObjectMapper(YAMLFactory())
-        val yamlContent = objectMapper.writeValueAsString(response)
-        val filename = response.metadata.name
+        val matomoResponseJSON = createMatomoResponse(matomo)
+        val convertedResponse = messageConverter(matomoResponseJSON)
+        val filename = matomoResponseJSON.metadata.name
         val directoryPath = "src/main/resources/matomoResources"
         val filePath = "$directoryPath/$filename.yaml" // Include the file extension
         val directory = File(directoryPath)
         if (!directory.exists()) {
             directory.mkdirs()
         }
-        File(filePath).writeText(yamlContent)
-        println(directory)
+        File(filePath).writeText(convertedResponse)
+        return convertedResponse
+    }
 
-        return yamlContent
+    private fun messageConverter(matomoResponseJSON: MatomoResponse): String {
+        val objectMapper = ObjectMapper(YAMLFactory())
+        return objectMapper.writeValueAsString(matomoResponseJSON)
     }
-    fun getMatomoResourceById(id: Long): MatomoEntityRequest? {
-        return matomoRepository.findById(id).orElse(null)
+
+    private fun createMatomoResponse(matomo: MatomoEntityRequest): MatomoResponse {
+        return  MatomoResponse(
+            apiVersion = apiVersion,
+            kind = kind,
+            metadata = Metadata(matomo.name, matomo.namespace),
+            spec = Spec(host = matomo.host)
+        )
     }
-    fun getAllMatomoResources() = matomoRepository.findAll().toList()
-    fun matomoResourceExistsInNamespace(name: String, namespace: String): Boolean {
-        return matomoRepository.existsByNameAndNamespace(name, namespace)
-    }
+
+
 
 }
