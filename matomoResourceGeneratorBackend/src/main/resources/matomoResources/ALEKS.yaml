@@ -2,7 +2,7 @@
 apiVersion: "glasskube.eu/v1alpha1"
 kind: "Matomo"
 metadata:
-  name: "matomo3"
+  name: "ALEKS"
   namespace: "matomo"
 spec:
   host: "matomo.minikube"

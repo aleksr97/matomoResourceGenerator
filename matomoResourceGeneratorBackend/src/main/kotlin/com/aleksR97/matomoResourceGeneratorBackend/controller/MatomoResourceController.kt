@@ -21,21 +21,7 @@ class MatomoResourceController (private val matomoService: MatomoService) {
 
     @PostMapping
     fun createMatomoResource(@RequestBody matomo: MatomoEntityRequest) : ResponseEntity<String>{
-        val apiVersion = "glasskube.eu/v1alpha1"
-        val kind = "Matomo"
-
-        matomoService.createMatomoResource(matomo)
-
-        val response = MatomoResponse(
-            apiVersion = apiVersion,
-            kind = kind,
-            metadata = Metadata(matomo.name, matomo.namespace),
-            spec = Spec(host = matomo.host)
-        )
-
-        val yamlResponse = matomoService.createResourceFile(response)
-        return ResponseEntity.ok(yamlResponse)
-
+        return ResponseEntity.ok(matomoService.createMatomoResource(matomo))
     }
 
     @GetMapping("/{id}")
